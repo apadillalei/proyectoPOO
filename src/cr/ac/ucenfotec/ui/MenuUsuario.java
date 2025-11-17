@@ -1,11 +1,16 @@
 package cr.ac.ucenfotec.ui;
 
 import cr.ac.ucenfotec.bl.entities.Usuario;
-import cr.ac.ucenfotec.dl.UsuarioRepo;
+import cr.ac.ucenfotec.tl.Controller;
 
 public class MenuUsuario {
+
     private final IO io = new IO();
-    private final UsuarioRepo repo = new UsuarioRepo();
+    private final Controller controller;
+
+    public MenuUsuario(Controller controller) {
+        this.controller = controller;
+    }
 
     public void mostrar(){
         int op;
@@ -31,14 +36,14 @@ public class MenuUsuario {
         String tel    = io.str("Teléfono: ");
         String rol    = io.str("Rol: ");
 
-
-        Usuario u = new Usuario(nombre, correo, pass, tel, rol);
-        repo.save(u);
-        System.out.println("Registrado: " + u);
+        controller.registrarUsuario(nombre, correo, pass, tel, rol);
+        System.out.println("Usuario registrado.");
     }
 
     private void listar(){
         System.out.println("\nUsuarios registrados:");
-        repo.list().forEach(System.out::println);
+        for (Usuario u : controller.obtenerUsuarios()) {
+            System.out.println(u);
+        }
     }
 }

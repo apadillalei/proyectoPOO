@@ -1,11 +1,16 @@
 package cr.ac.ucenfotec.ui;
 
 import cr.ac.ucenfotec.bl.entities.Departamento;
-import cr.ac.ucenfotec.dl.DepartamentoRepo;
+import cr.ac.ucenfotec.tl.Controller;
 
 public class MenuDepartamento {
+
     private final IO io = new IO();
-    private final DepartamentoRepo repo = new DepartamentoRepo();
+    private final Controller controller;
+
+    public MenuDepartamento(Controller controller) {
+        this.controller = controller;
+    }
 
     public void mostrar(){
         int op;
@@ -29,13 +34,14 @@ public class MenuDepartamento {
         String desc     = io.str("Descripción: ");
         String contacto = io.str("Correo de contacto: ");
 
-        Departamento d = new Departamento(nombre, desc, contacto);
-        repo.save(d);
-        System.out.println("Registrado: " + d);
+        controller.registrarDepartamento(nombre, desc, contacto);
+        System.out.println("Departamento registrado.");
     }
 
     private void listar(){
         System.out.println("\nDepartamentos registrados:");
-        repo.list().forEach(System.out::println);
+        for (Departamento d : controller.obtenerDepartamentos()) {
+            System.out.println(d);
+        }
     }
 }

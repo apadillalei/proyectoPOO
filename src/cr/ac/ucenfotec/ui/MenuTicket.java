@@ -1,17 +1,20 @@
 package cr.ac.ucenfotec.ui;
 
-import cr.ac.ucenfotec.bl.entities.Usuario;
 import cr.ac.ucenfotec.bl.entities.Departamento;
+import cr.ac.ucenfotec.bl.entities.Ticket;
+import cr.ac.ucenfotec.bl.entities.Usuario;
+import cr.ac.ucenfotec.tl.Controller;
 
-import cr.ac.ucenfotec.dl.TicketRepo;
-import cr.ac.ucenfotec.dl.UsuarioRepo;
-import cr.ac.ucenfotec.dl.DepartamentoRepo;
+import java.util.List;
 
 public class MenuTicket {
+
     private final IO io = new IO();
-    private final TicketRepo tRepo = new TicketRepo();
-    private final UsuarioRepo uRepo = new UsuarioRepo();
-    private final DepartamentoRepo dRepo = new DepartamentoRepo();
+    private final Controller controller;
+
+    public MenuTicket(Controller controller) {
+        this.controller = controller;
+    }
 
     public void mostrar() {
         int op;
@@ -22,55 +25,56 @@ public class MenuTicket {
             System.out.println("0) Volver");
             op = io.i("Opción: ");
             switch (op) {
-                case 1:
-                    registrar();
-                    break;
-                case 2:
-                    listar();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opción inválida.");
+                case 1 -> registrar();
+                case 2 -> listar();
+                case 0 -> {}
+                default -> System.out.println("Opción inválida.");
             }
         } while (op != 0);
     }
 
     private void registrar() {
-        if (uRepo.list().isEmpty() || dRepo.list().isEmpty()) {
+        List<Usuario> usuarios = controller.obtenerUsuarios();
+        List<Departamento> departamentos = controller.obtenerDepartamentos();
+
+        if (usuarios.isEmpty() || departamentos.isEmpty()) {
             System.out.println(" Debes tener al menos 1 Usuario y 1 Departamento registrados.");
             return;
         }
 
         System.out.println("\n> Elige Usuario reportante:");
-        uRepo.list().forEach(System.out::println);
+        usuarios.forEach(System.out::println);
         int uid = io.i("Id de usuario: ");
-        Usuario u = uRepo.findById(uid);
+        Usuario u = controller.buscarUsuarioPorId(uid);
         if (u == null) {
             System.out.println("Usuario no encontrado.");
             return;
         }
 
         System.out.println("\n> Elige Departamento asignado:");
-        dRepo.list().forEach(System.out::println);
+        departamentos.forEach(System.out::println);
         int did = io.i("Id de departamento: ");
-        Departamento d = dRepo.findById(did);
+        Departamento d = controller.buscarDepartamentoPorId(did);
         if (d == null) {
             System.out.println("Departamento no encontrado.");
             return;
         }
 
         String titulo = io.str("Título: ");
-        String desc = io.str("Descripción: ");
+        String desc   = io.str("Descripción: ");
         String estado = io.str("Estado (nuevo/en progreso/cerrado): ");
 
+        controller.registrarTicket(titulo, desc, estado, u, d);
+        System.out.println("Ticket registrado.");
     }
+
     private void listar() {
         System.out.println("\nTickets registrados:");
-        if (tRepo.list().isEmpty()) {
+        List<Ticket> tickets = controller.obtenerTickets();
+        if (tickets.isEmpty()) {
             System.out.println("(sin tickets)");
             return;
         }
-        tRepo.list().forEach(System.out::println);
+        tickets.forEach(System.out::println);
     }
 }

@@ -2,11 +2,18 @@ package cr.ac.ucenfotec.ui;
 
 import cr.ac.ucenfotec.bl.entities.Diccionario;
 import cr.ac.ucenfotec.bl.entities.Palabra;
-import cr.ac.ucenfotec.dl.DiccionarioRepo;
+import cr.ac.ucenfotec.tl.Controller;
+
+import java.util.List;
 
 public class MenuDiccionario {
+
     private final IO io = new IO();
-    private final DiccionarioRepo repo = new DiccionarioRepo();
+    private final Controller controller;
+
+    public MenuDiccionario(Controller controller) {
+        this.controller = controller;
+    }
 
     public void mostrar(){
         int op;
@@ -32,20 +39,20 @@ public class MenuDiccionario {
 
     private void crearDiccionario(){
         String tipo = io.str("Tipo (emocional/tecnico): ");
-        Diccionario d = new Diccionario(tipo);
-        repo.save(d);
-        System.out.println("Creado: " + d);
+        controller.crearDiccionario(tipo);
+        System.out.println("Diccionario creado.");
     }
 
     private void agregarPalabra(){
-        if (repo.list().isEmpty()){
+        List<Diccionario> diccionarios = controller.obtenerDiccionarios();
+        if (diccionarios.isEmpty()){
             System.out.println("⚠ No hay diccionarios. Crea uno primero.");
             return;
         }
 
         listarDiccionarios();
         int id = io.i("Id del diccionario: ");
-        Diccionario dic = repo.findById(id);
+        Diccionario dic = controller.buscarDiccionarioPorId(id);
         if (dic == null){
             System.out.println("Diccionario no encontrado.");
             return;
@@ -54,35 +61,37 @@ public class MenuDiccionario {
         String texto = io.str("Palabra: ");
         String categoria = io.str("Categoría/Emoción: ");
 
-        boolean ok = repo.addPalabra(dic, new Palabra(texto, categoria));
-        System.out.println(ok ? "Palabra agregada." : "⚠ No se pudo agregar (id inválido o palabra repetida).");
+        controller.agregarPalabraADiccionario(dic, texto, categoria);
+        System.out.println("Palabra agregada.");
     }
 
     private void listarDiccionarios(){
         System.out.println("\nDiccionarios:");
-        if (repo.list().isEmpty()){
+        List<Diccionario> lista = controller.obtenerDiccionarios();
+        if (lista.isEmpty()){
             System.out.println("(sin diccionarios)");
             return;
         }
-        repo.list().forEach(System.out::println);
+        lista.forEach(System.out::println);
     }
 
     private void listarPalabras(){
-        if (repo.list().isEmpty()){
+        List<Diccionario> diccionarios = controller.obtenerDiccionarios();
+        if (diccionarios.isEmpty()){
             System.out.println("No hay diccionarios. Crea uno primero.");
             return;
         }
 
         listarDiccionarios();
         int id = io.i("Id del diccionario: ");
-        Diccionario dic = repo.findById(id);
+        Diccionario dic = controller.buscarDiccionarioPorId(id);
         if (dic == null){
             System.out.println("Diccionario no encontrado.");
             return;
         }
 
         System.out.println("\nPalabras:");
-        var palabras = repo.listPalabras(dic);
+        List<Palabra> palabras = controller.obtenerPalabrasDeDiccionario(dic);
         if (palabras == null || palabras.isEmpty()){
             System.out.println("(sin palabras)");
             return;

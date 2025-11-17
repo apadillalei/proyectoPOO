@@ -1,14 +1,15 @@
 package cr.ac.ucenfotec.ui;
 
-import cr.ac.ucenfotec.ui.IO;
+import cr.ac.ucenfotec.tl.Controller;
 
 public class MenuPrincipal {
-    private final IO io = new IO();
 
-    private final MenuUsuario      menuUsuario      = new MenuUsuario();
-    private final MenuDepartamento menuDepartamento = new MenuDepartamento();
-    private final MenuTicket       menuTicket       = new MenuTicket();
-    private final MenuDiccionario  menuDiccionario  = new MenuDiccionario();
+    private final IO io = new IO();
+    private final Controller controller;
+
+    public MenuPrincipal(Controller controller) {
+        this.controller = controller;
+    }
 
     public void iniciar(){
         int op;
@@ -22,10 +23,10 @@ public class MenuPrincipal {
             op = io.i("Opción: ");
 
             switch (op){
-                case 1 -> menuUsuario.mostrar();
-                case 2 -> menuDepartamento.mostrar();
-                case 3 -> menuTicket.mostrar();
-                case 4 -> menuDiccionario.mostrar();
+                case 1 -> controller.mostrarMenuUsuarios();
+                case 2 -> controller.mostrarMenuDepartamentos();
+                case 3 -> controller.mostrarMenuTickets();
+                case 4 -> controller.mostrarMenuDiccionarios();
                 case 0 -> System.out.println("¡Adiós!");
                 default -> System.out.println("Opción inválida.");
             }
