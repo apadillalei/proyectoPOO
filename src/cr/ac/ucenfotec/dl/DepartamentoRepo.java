@@ -1,6 +1,8 @@
-package cr.ac.ucenfotec.memoria;
+package cr.ac.ucenfotec.dl;
 
-import cr.ac.ucenfotec.dominio.Departamento;
+import cr.ac.ucenfotec.bl.entities.Departamento;
+import cr.ac.ucenfotec.dl.DataStore;
+
 import java.util.List;
 
 

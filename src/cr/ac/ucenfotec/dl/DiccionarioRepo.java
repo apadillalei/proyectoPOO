@@ -1,7 +1,9 @@
-package cr.ac.ucenfotec.memoria;
+package cr.ac.ucenfotec.dl;
 
-import cr.ac.ucenfotec.dominio.Diccionario;
-import cr.ac.ucenfotec.dominio.Palabra;
+import cr.ac.ucenfotec.bl.entities.Diccionario;
+import cr.ac.ucenfotec.bl.entities.Palabra;
+import cr.ac.ucenfotec.dl.DataStore;
+
 import java.util.List;
 
 

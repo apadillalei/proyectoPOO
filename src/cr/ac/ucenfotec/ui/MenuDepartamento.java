@@ -1,7 +1,7 @@
 package cr.ac.ucenfotec.ui;
 
-import cr.ac.ucenfotec.dominio.Departamento;
-import cr.ac.ucenfotec.memoria.DepartamentoRepo;
+import cr.ac.ucenfotec.bl.entities.Departamento;
+import cr.ac.ucenfotec.dl.DepartamentoRepo;
 
 public class MenuDepartamento {
     private final IO io = new IO();

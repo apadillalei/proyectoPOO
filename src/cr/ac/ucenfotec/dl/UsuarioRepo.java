@@ -1,6 +1,8 @@
-package cr.ac.ucenfotec.memoria;
+package cr.ac.ucenfotec.dl;
 
-import cr.ac.ucenfotec.dominio.Usuario;
+import cr.ac.ucenfotec.bl.entities.Usuario;
+import cr.ac.ucenfotec.dl.DataStore;
+
 import java.util.List;
 
 public class UsuarioRepo {

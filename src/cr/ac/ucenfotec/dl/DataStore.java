@@ -1,6 +1,10 @@
-package cr.ac.ucenfotec.memoria;
+package cr.ac.ucenfotec.dl;
 
-import cr.ac.ucenfotec.dominio.*;
+import cr.ac.ucenfotec.bl.entities.Departamento;
+import cr.ac.ucenfotec.bl.entities.Diccionario;
+import cr.ac.ucenfotec.bl.entities.Ticket;
+import cr.ac.ucenfotec.bl.entities.Usuario;
+
 import java.util.ArrayList;
 import java.util.List;
 

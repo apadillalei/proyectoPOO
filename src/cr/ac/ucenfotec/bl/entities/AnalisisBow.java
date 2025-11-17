@@ -1,4 +1,4 @@
-package cr.ac.ucenfotec.dominio;
+package cr.ac.ucenfotec.bl.entities;
 
 import java.text.Normalizer;
 import java.util.*;

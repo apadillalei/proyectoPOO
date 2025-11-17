@@ -1,8 +1,8 @@
 package cr.ac.ucenfotec.ui;
 
-import cr.ac.ucenfotec.dominio.Diccionario;
-import cr.ac.ucenfotec.dominio.Palabra;
-import cr.ac.ucenfotec.memoria.DiccionarioRepo;
+import cr.ac.ucenfotec.bl.entities.Diccionario;
+import cr.ac.ucenfotec.bl.entities.Palabra;
+import cr.ac.ucenfotec.dl.DiccionarioRepo;
 
 public class MenuDiccionario {
     private final IO io = new IO();

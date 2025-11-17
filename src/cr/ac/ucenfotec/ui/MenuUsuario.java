@@ -1,7 +1,7 @@
 package cr.ac.ucenfotec.ui;
 
-import cr.ac.ucenfotec.dominio.Usuario;
-import cr.ac.ucenfotec.memoria.UsuarioRepo;
+import cr.ac.ucenfotec.bl.entities.Usuario;
+import cr.ac.ucenfotec.dl.UsuarioRepo;
 
 public class MenuUsuario {
     private final IO io = new IO();

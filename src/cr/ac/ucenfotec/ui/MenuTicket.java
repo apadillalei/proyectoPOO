@@ -1,14 +1,11 @@
 package cr.ac.ucenfotec.ui;
 
-import cr.ac.ucenfotec.dominio.Ticket;
-import cr.ac.ucenfotec.dominio.Usuario;
-import cr.ac.ucenfotec.dominio.Departamento;
+import cr.ac.ucenfotec.bl.entities.Usuario;
+import cr.ac.ucenfotec.bl.entities.Departamento;
 
-import cr.ac.ucenfotec.memoria.TicketRepo;
-import cr.ac.ucenfotec.memoria.UsuarioRepo;
-import cr.ac.ucenfotec.memoria.DepartamentoRepo;
-import cr.ac.ucenfotec.memoria.TicketRepo;
-import java.time.LocalDate;
+import cr.ac.ucenfotec.dl.TicketRepo;
+import cr.ac.ucenfotec.dl.UsuarioRepo;
+import cr.ac.ucenfotec.dl.DepartamentoRepo;
 
 public class MenuTicket {
     private final IO io = new IO();
